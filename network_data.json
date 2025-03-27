@@ -1,0 +1,1786 @@
+{
+    "nodes": [
+        {
+            "id": "A5004798560",
+            "label": "Simone Righi",
+            "isEgo": true
+        },
+        {
+            "id": "A5001066958",
+            "label": "Timotéo Carletti",
+            "isEgo": false
+        },
+        {
+            "id": "A5078807791",
+            "label": "Matthew Grainger",
+            "isEgo": false
+        },
+        {
+            "id": "A5086731887",
+            "label": "L.H. Aramyan",
+            "isEgo": false
+        },
+        {
+            "id": "A5001722310",
+            "label": "Katja Logatcheva",
+            "isEgo": false
+        },
+        {
+            "id": "A5069665260",
+            "label": "Simone Piras",
+            "isEgo": false
+        },
+        {
+            "id": "A5026065319",
+            "label": "Marco Setti",
+            "isEgo": false
+        },
+        {
+            "id": "A5011469490",
+            "label": "Matteo Vittuari",
+            "isEgo": false
+        },
+        {
+            "id": "A5069998604",
+            "label": "Gavin Stewart",
+            "isEgo": false
+        },
+        {
+            "id": "A5001214979",
+            "label": "Francesca Pancotto",
+            "isEgo": false
+        },
+        {
+            "id": "A5013933082",
+            "label": "Shirsendu Podder",
+            "isEgo": false
+        },
+        {
+            "id": "A5013376058",
+            "label": "Federico Banchelli",
+            "isEgo": false
+        },
+        {
+            "id": "A5012033596",
+            "label": "Claudia Giordano",
+            "isEgo": false
+        },
+        {
+            "id": "A5103578609",
+            "label": "Thomas E. Quested",
+            "isEgo": false
+        },
+        {
+            "id": "A5062547612",
+            "label": "Nazli Koseoglu",
+            "isEgo": false
+        },
+        {
+            "id": "A5015566794",
+            "label": "Károly Takács",
+            "isEgo": false
+        },
+        {
+            "id": "A5083633035",
+            "label": "Elias Carroni",
+            "isEgo": false
+        },
+        {
+            "id": "A5070815266",
+            "label": "Paolo Pin",
+            "isEgo": false
+        },
+        {
+            "id": "A5012905189",
+            "label": "Pasquale Pavone",
+            "isEgo": false
+        },
+        {
+            "id": "A5087734634",
+            "label": "Francesco Pagliacci",
+            "isEgo": false
+        },
+        {
+            "id": "A5086651579",
+            "label": "Margherita Russo",
+            "isEgo": false
+        },
+        {
+            "id": "A5060127487",
+            "label": "Annamaria Giorgi",
+            "isEgo": false
+        },
+        {
+            "id": "A5049211935",
+            "label": "Fabrizio Alboni",
+            "isEgo": false
+        },
+        {
+            "id": "A5026353568",
+            "label": "Jorge Carreto Sanginés",
+            "isEgo": false
+        },
+        {
+            "id": "A5019170728",
+            "label": "Manlio De Domenico",
+            "isEgo": false
+        },
+        {
+            "id": "A5015254027",
+            "label": "Giuseppe Mangioni",
+            "isEgo": false
+        },
+        {
+            "id": "A5082428017",
+            "label": "Annamaria Simonazzi",
+            "isEgo": false
+        },
+        {
+            "id": "A5048434153",
+            "label": "Yuri Biondi",
+            "isEgo": false
+        },
+        {
+            "id": "A5056557463",
+            "label": "Francesca Giardini",
+            "isEgo": false
+        },
+        {
+            "id": "A5073176948",
+            "label": "Duccio Fanelli",
+            "isEgo": false
+        },
+        {
+            "id": "A5032460241",
+            "label": "Gani Aldashev",
+            "isEgo": false
+        },
+        {
+            "id": "A5063681660",
+            "label": "Luca Ferrari",
+            "isEgo": false
+        },
+        {
+            "id": "A5037430038",
+            "label": "Moritz Platt",
+            "isEgo": false
+        },
+        {
+            "id": "A5102892022",
+            "label": "Francesco Pierangeli",
+            "isEgo": false
+        },
+        {
+            "id": "A5040844400",
+            "label": "Giacomo Livan",
+            "isEgo": false
+        },
+        {
+            "id": "A5068727780",
+            "label": "Riccardo Righi",
+            "isEgo": false
+        },
+        {
+            "id": "A5018822374",
+            "label": "Alessia Pedrazzoli",
+            "isEgo": false
+        },
+        {
+            "id": "A5075493211",
+            "label": "Valeria Venturelli",
+            "isEgo": false
+        },
+        {
+            "id": "A5041505017",
+            "label": "Mingtang Li",
+            "isEgo": false
+        },
+        {
+            "id": "A5076158939",
+            "label": "Matteo Masotti",
+            "isEgo": false
+        },
+        {
+            "id": "A5010591212",
+            "label": "Cansu Kandemir",
+            "isEgo": false
+        },
+        {
+            "id": "A5056351857",
+            "label": "Christian Reynolds",
+            "isEgo": false
+        },
+        {
+            "id": "A5102331810",
+            "label": "Monika Verma",
+            "isEgo": false
+        },
+        {
+            "id": "A5023312789",
+            "label": "Tom Quested",
+            "isEgo": false
+        },
+        {
+            "id": "A5030973042",
+            "label": "Annalisa Caloffi",
+            "isEgo": false
+        },
+        {
+            "id": "A5009652126",
+            "label": "Federica Rossi",
+            "isEgo": false
+        },
+        {
+            "id": "A5064693182",
+            "label": "Federica Rossi",
+            "isEgo": false
+        },
+        {
+            "id": "A5054415777",
+            "label": "Maurizio Casoni",
+            "isEgo": false
+        },
+        {
+            "id": "A5063215819",
+            "label": "Manuela Farinosi",
+            "isEgo": false
+        },
+        {
+            "id": "A5054616837",
+            "label": "Leopoldina Fortunati",
+            "isEgo": false
+        },
+        {
+            "id": "A5053606241",
+            "label": "Cristina Garzillo",
+            "isEgo": false
+        },
+        {
+            "id": "A5042838583",
+            "label": "Michael Guggenheim",
+            "isEgo": false
+        },
+        {
+            "id": "A5010104735",
+            "label": "Paolo Lauriola",
+            "isEgo": false
+        },
+        {
+            "id": "A5012174596",
+            "label": "Biagio Oppi",
+            "isEgo": false
+        },
+        {
+            "id": "A5039408094",
+            "label": "Stefano Pedrazzi",
+            "isEgo": false
+        },
+        {
+            "id": "A5015257271",
+            "label": "Katrina Petersen",
+            "isEgo": false
+        },
+        {
+            "id": "A5007379202",
+            "label": "Marco Villani",
+            "isEgo": false
+        },
+        {
+            "id": "A5070468952",
+            "label": "F. Codeluppi",
+            "isEgo": false
+        },
+        {
+            "id": "A5058356865",
+            "label": "G.B. Steward",
+            "isEgo": false
+        },
+        {
+            "id": "A5024753832",
+            "label": "Gavin R. Stewart",
+            "isEgo": false
+        },
+        {
+            "id": "A5065726413",
+            "label": "Roberto Porcelli",
+            "isEgo": false
+        },
+        {
+            "id": "A5020128244",
+            "label": "Federica Dotto",
+            "isEgo": false
+        },
+        {
+            "id": "A5028387518",
+            "label": "A. Contin",
+            "isEgo": false
+        },
+        {
+            "id": "A5075799379",
+            "label": "S. Boero",
+            "isEgo": false
+        },
+        {
+            "id": "A5038211904",
+            "label": "Marco Mazzotti",
+            "isEgo": false
+        },
+        {
+            "id": "A5022437661",
+            "label": "Riccardo Righi",
+            "isEgo": false
+        },
+        {
+            "id": "A5072560560",
+            "label": "Fabio Caccioli",
+            "isEgo": false
+        },
+        {
+            "id": "A5035375830",
+            "label": "Tiziana Di Matteo",
+            "isEgo": false
+        },
+        {
+            "id": "A5040337779",
+            "label": "Giulia Iori",
+            "isEgo": false
+        },
+        {
+            "id": "A5051525389",
+            "label": "Saqib Jafarey",
+            "isEgo": false
+        }
+    ],
+    "edges": [
+        {
+            "from": "A5004798560",
+            "to": "A5001066958",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5086731887",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5001722310",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5026065319",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5011469490",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5069998604",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5001214979",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5013933082",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5013376058",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5012033596",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5103578609",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5062547612",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5015566794",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5083633035",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5070815266",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5012905189",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5060127487",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5049211935",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5026353568",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5019170728",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5015254027",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5082428017",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5048434153",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5056557463",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5073176948",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5032460241",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5063681660",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5037430038",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5102892022",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5040844400",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5068727780",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5018822374",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5075493211",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5041505017",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5076158939",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5010591212",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5056351857",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5102331810",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5023312789",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5030973042",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5009652126",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5064693182",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5054415777",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5063215819",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5054616837",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5053606241",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5042838583",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5010104735",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5012174596",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5039408094",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5015257271",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5007379202",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5070468952",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5058356865",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5024753832",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5065726413",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5020128244",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5028387518",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5075799379",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5038211904",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5022437661",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5072560560",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5035375830",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5040337779",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5004798560",
+            "to": "A5051525389",
+            "isCollaborationWithEgo": false
+        },
+        {
+            "from": "A5001722310",
+            "to": "A5011469490",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001722310",
+            "to": "A5026065319",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001722310",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001722310",
+            "to": "A5069998604",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001722310",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001722310",
+            "to": "A5086731887",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5026065319",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5069998604",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5086731887",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026065319",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026065319",
+            "to": "A5069998604",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026065319",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026065319",
+            "to": "A5086731887",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5069665260",
+            "to": "A5069998604",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5069665260",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5069665260",
+            "to": "A5086731887",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5069998604",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5069998604",
+            "to": "A5086731887",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5078807791",
+            "to": "A5086731887",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001214979",
+            "to": "A5011469490",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001214979",
+            "to": "A5026065319",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001214979",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001214979",
+            "to": "A5013933082",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012033596",
+            "to": "A5013376058",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012033596",
+            "to": "A5026065319",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012033596",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5013376058",
+            "to": "A5026065319",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5013376058",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5103578609",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026065319",
+            "to": "A5103578609",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5069665260",
+            "to": "A5103578609",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5069998604",
+            "to": "A5103578609",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5078807791",
+            "to": "A5103578609",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5086731887",
+            "to": "A5103578609",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5062547612",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026065319",
+            "to": "A5062547612",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5062547612",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5062547612",
+            "to": "A5069998604",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5062547612",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5070815266",
+            "to": "A5083633035",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012905189",
+            "to": "A5060127487",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012905189",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012905189",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5060127487",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5060127487",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5086651579",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015254027",
+            "to": "A5019170728",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015254027",
+            "to": "A5026353568",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015254027",
+            "to": "A5049211935",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015254027",
+            "to": "A5082428017",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015254027",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5019170728",
+            "to": "A5026353568",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5019170728",
+            "to": "A5049211935",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5019170728",
+            "to": "A5082428017",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5019170728",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026353568",
+            "to": "A5049211935",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026353568",
+            "to": "A5082428017",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026353568",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5049211935",
+            "to": "A5082428017",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5049211935",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5082428017",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5013933082",
+            "to": "A5015566794",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001214979",
+            "to": "A5056557463",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001066958",
+            "to": "A5073176948",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001066958",
+            "to": "A5032460241",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5063681660",
+            "to": "A5083633035",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5037430038",
+            "to": "A5040844400",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5037430038",
+            "to": "A5102892022",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5040844400",
+            "to": "A5102892022",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001214979",
+            "to": "A5015566794",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5018822374",
+            "to": "A5068727780",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5018822374",
+            "to": "A5075493211",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5068727780",
+            "to": "A5075493211",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5040844400",
+            "to": "A5041505017",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001722310",
+            "to": "A5076158939",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5076158939",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026065319",
+            "to": "A5076158939",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5069665260",
+            "to": "A5076158939",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5076158939",
+            "to": "A5086731887",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010591212",
+            "to": "A5011469490",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010591212",
+            "to": "A5023312789",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010591212",
+            "to": "A5026065319",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010591212",
+            "to": "A5056351857",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010591212",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010591212",
+            "to": "A5069998604",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010591212",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010591212",
+            "to": "A5102331810",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5023312789",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5056351857",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5102331810",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5023312789",
+            "to": "A5026065319",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5023312789",
+            "to": "A5056351857",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5023312789",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5023312789",
+            "to": "A5069998604",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5023312789",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5023312789",
+            "to": "A5102331810",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026065319",
+            "to": "A5056351857",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026065319",
+            "to": "A5102331810",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5056351857",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5056351857",
+            "to": "A5069998604",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5056351857",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5056351857",
+            "to": "A5102331810",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5069665260",
+            "to": "A5102331810",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5069998604",
+            "to": "A5102331810",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5078807791",
+            "to": "A5102331810",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5009652126",
+            "to": "A5030973042",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5009652126",
+            "to": "A5068727780",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5009652126",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5030973042",
+            "to": "A5068727780",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5030973042",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5068727780",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012905189",
+            "to": "A5068727780",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5030973042",
+            "to": "A5064693182",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5064693182",
+            "to": "A5068727780",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5064693182",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5007379202",
+            "to": "A5010104735",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5007379202",
+            "to": "A5012174596",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5007379202",
+            "to": "A5015257271",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5007379202",
+            "to": "A5039408094",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5007379202",
+            "to": "A5042838583",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5007379202",
+            "to": "A5053606241",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5007379202",
+            "to": "A5054415777",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5007379202",
+            "to": "A5054616837",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5007379202",
+            "to": "A5063215819",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5007379202",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5007379202",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010104735",
+            "to": "A5012174596",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010104735",
+            "to": "A5015257271",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010104735",
+            "to": "A5039408094",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010104735",
+            "to": "A5042838583",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010104735",
+            "to": "A5053606241",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010104735",
+            "to": "A5054415777",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010104735",
+            "to": "A5054616837",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010104735",
+            "to": "A5063215819",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010104735",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5010104735",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012174596",
+            "to": "A5015257271",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012174596",
+            "to": "A5039408094",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012174596",
+            "to": "A5042838583",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012174596",
+            "to": "A5053606241",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012174596",
+            "to": "A5054415777",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012174596",
+            "to": "A5054616837",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012174596",
+            "to": "A5063215819",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012174596",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5012174596",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015257271",
+            "to": "A5039408094",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015257271",
+            "to": "A5042838583",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015257271",
+            "to": "A5053606241",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015257271",
+            "to": "A5054415777",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015257271",
+            "to": "A5054616837",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015257271",
+            "to": "A5063215819",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015257271",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5015257271",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5039408094",
+            "to": "A5042838583",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5039408094",
+            "to": "A5053606241",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5039408094",
+            "to": "A5054415777",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5039408094",
+            "to": "A5054616837",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5039408094",
+            "to": "A5063215819",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5039408094",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5039408094",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5042838583",
+            "to": "A5053606241",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5042838583",
+            "to": "A5054415777",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5042838583",
+            "to": "A5054616837",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5042838583",
+            "to": "A5063215819",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5042838583",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5042838583",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5053606241",
+            "to": "A5054415777",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5053606241",
+            "to": "A5054616837",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5053606241",
+            "to": "A5063215819",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5053606241",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5053606241",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5054415777",
+            "to": "A5054616837",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5054415777",
+            "to": "A5063215819",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5054415777",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5054415777",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5054616837",
+            "to": "A5063215819",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5054616837",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5054616837",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5063215819",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5063215819",
+            "to": "A5087734634",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001214979",
+            "to": "A5070468952",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5001722310",
+            "to": "A5058356865",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5058356865",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5026065319",
+            "to": "A5058356865",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5058356865",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5058356865",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5058356865",
+            "to": "A5086731887",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5011469490",
+            "to": "A5024753832",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5024753832",
+            "to": "A5026065319",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5024753832",
+            "to": "A5069665260",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5024753832",
+            "to": "A5078807791",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5024753832",
+            "to": "A5086731887",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5020128244",
+            "to": "A5028387518",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5020128244",
+            "to": "A5038211904",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5020128244",
+            "to": "A5065726413",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5020128244",
+            "to": "A5075799379",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5028387518",
+            "to": "A5038211904",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5028387518",
+            "to": "A5065726413",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5028387518",
+            "to": "A5075799379",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5038211904",
+            "to": "A5065726413",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5038211904",
+            "to": "A5075799379",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5065726413",
+            "to": "A5075799379",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5009652126",
+            "to": "A5022437661",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5022437661",
+            "to": "A5030973042",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5022437661",
+            "to": "A5086651579",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5035375830",
+            "to": "A5040337779",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5035375830",
+            "to": "A5040844400",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5035375830",
+            "to": "A5051525389",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5035375830",
+            "to": "A5072560560",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5040337779",
+            "to": "A5040844400",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5040337779",
+            "to": "A5051525389",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5040337779",
+            "to": "A5072560560",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5040844400",
+            "to": "A5051525389",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5040844400",
+            "to": "A5072560560",
+            "isCollaborationWithEgo": true
+        },
+        {
+            "from": "A5051525389",
+            "to": "A5072560560",
+            "isCollaborationWithEgo": true
+        }
+    ]
+}
