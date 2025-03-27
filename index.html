@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-Authorship Network</title>
+    <!-- Load vis-network library -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrollbars on body */
+            font-family: sans-serif;
+        }
+        #network-container {
+            width: 100%;
+            height: 100vh; /* Make container fill viewport height */
+            border: 1px solid lightgray;
+            box-sizing: border-box; /* Include border in size */
+        }
+        .controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border-radius: 3px;
+            z-index: 10;
+        }
+         /* Style for vis-network tooltips */
+        .vis-tooltip {
+            position: absolute;
+            visibility: hidden;
+            padding: 5px;
+            white-space: nowrap;
+            font-family: sans-serif;
+            font-size: 14px;
+            color: #000;
+            background-color: #f5f4ed;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            border: 1px solid #808074;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            pointer-events: none; /* Allow clicks to pass through */
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <label>
+            <input type="checkbox" id="toggleLabels" checked> Show Co-Author Names
+        </label>
+    </div>
+    <div id="network-container"></div>
+
+    <script type="text/javascript">
+        // --- Configuration ---
+        // !!! PASTE THE RAW GITHUB URL FOR YOUR network_data.json FILE HERE !!!
+        const dataUrl = "https://raw.githubusercontent.com/simonerighi/ego_networks/refs/heads/main/network_data.json";
+        // --- End Configuration ---
+
+        const container = document.getElementById('network-container');
+        const toggleLabelsCheckbox = document.getElementById('toggleLabels');
+        let network = null;
+        let allNodes = null; // To store the original nodes data
+
+        // Function to fetch and draw the network
+        async function drawNetwork() {
+            if (!dataUrl || dataUrl === "PASTE_YOUR_RAW_JSON_URL_HERE") {
+                 container.innerHTML = '<p style="padding: 20px; color: red;">Error: Please edit the HTML file and replace "PASTE_YOUR_RAW_JSON_URL_HERE" with the correct URL for your network_data.json file.</p>';
+                 return;
+            }
+
+            try {
+                const response = await fetch(dataUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const graphData = await response.json();
+
+                // --- Prepare data for vis-network ---
+                let egoNodeId = null;
+                const visNodes = graphData.nodes.map(node => {
+                    if (node.isEgo) {
+                        egoNodeId = node.id;
+                        return {
+                            id: node.id,
+                            label: node.label, // Ego label always visible
+                            title: `<b>${node.label}</b> (Ego)`, // Tooltip for Ego
+                            color: { background: '#ffcc00', border: '#ffa500' }, // Distinct color for ego
+                            size: 30, // Make ego larger
+                            font: { size: 16 }
+                        };
+                    } else {
+                        return {
+                            id: node.id,
+                            label: toggleLabelsCheckbox.checked ? node.label : undefined, // Initial label state
+                            hiddenLabel: node.label, // Store original label
+                            title: `<b>${node.label}</b>`, // Tooltip for co-authors
+                            isEgo: false,
+                            shape: 'dot', // Default shape
+                            size: 15 // Default size
+                        };
+                    }
+                });
+
+                const visEdges = graphData.edges.map(edge => {
+                    // Color edges between co-authors red if 'isCollaborationWithEgo' is true
+                    const edgeColor = edge.isCollaborationWithEgo ? '#ff0000' : '#848484'; // Red or Grey
+                    const edgeWidth = edge.isCollaborationWithEgo ? 2 : 1;
+                    // Add title to edges for potential tooltips (optional)
+                    // let edgeTitle = `Co-authorship link`;
+                    // if (edge.isCollaborationWithEgo) {
+                    //     edgeTitle += ` (on paper with Ego)`
+                    // }
+
+                    return {
+                        from: edge.from,
+                        to: edge.to,
+                        color: edgeColor,
+                        width: edgeWidth,
+                        arrows: { to: { enabled: false } }, // No arrows
+                        // title: edgeTitle // Uncomment to enable edge tooltips
+                    };
+                });
+
+                allNodes = new vis.DataSet(visNodes); // Store DataSet reference
+
+                const data = {
+                    nodes: allNodes,
+                    edges: new vis.DataSet(visEdges)
+                };
+
+                // --- Configure vis-network Options ---
+                const options = {
+                    layout: {
+                        randomSeed: undefined,
+                        improvedLayout: true,
+                        // Hierarchical layout is not suitable for ego networks
+                        // hierarchical: false
+                    },
+                    physics: {
+                        enabled: true, // Enable physics for layout
+                        solver: 'forceAtlas2Based', // A good general-purpose layout solver
+                        forceAtlas2Based: {
+                            gravitationalConstant: -50,
+                            centralGravity: 0.01,
+                            springLength: 100,
+                            springConstant: 0.08,
+                            damping: 0.4,
+                            avoidOverlap: 0.5 // Helps prevent node overlap
+                        },
+                        stabilization: { // Stabilize faster
+                            enabled: true,
+                            iterations: 1000,
+                            updateInterval: 50,
+                            onlyDynamicEdges: false,
+                            fit: true
+                        },
+                        // Stop physics simulation after stabilization for better performance
+                        // and to approximate a static layout like Kamada-Kawai
+                        timestep: 0.5,
+                        adaptiveTimesteps: true
+                    },
+                    nodes: {
+                        shape: 'dot',
+                        size: 16,
+                        font: {
+                            size: 12,
+                            color: '#333'
+                        },
+                        borderWidth: 2
+                    },
+                    edges: {
+                        width: 1,
+                        smooth: {
+                            enabled: true,
+                            type: "continuous",
+                            roundness: 0.5
+                        }
+                    },
+                    interaction: {
+                        tooltipDelay: 200, // Delay before showing tooltips
+                        hideEdgesOnDrag: true, // Improves performance during drag
+                        navigationButtons: true, // Show zoom/fit buttons
+                        keyboard: true // Allow keyboard navigation
+                    }
+                };
+
+                // --- Initialize Network ---
+                container.innerHTML = ''; // Clear any previous message
+                network = new vis.Network(container, data, options);
+
+                // Stop physics after initial stabilization
+                 network.on("stabilizationIterationsDone", function () {
+                    network.setOptions( { physics: false } );
+                    console.log("Physics disabled after stabilization.");
+                });
+
+
+            } catch (error) {
+                console.error('Error loading or drawing network:', error);
+                container.innerHTML = `<p style="padding: 20px; color: red;">Error loading or drawing network. Check console (F12) for details. <br> Is the JSON URL correct and publicly accessible? <br> Error: ${error.message}</p>`;
+            }
+        }
+
+        // --- Label Toggle Functionality ---
+        toggleLabelsCheckbox.addEventListener('change', (event) => {
+            const showLabels = event.target.checked;
+            if (network && allNodes) {
+                const nodesToUpdate = [];
+                 allNodes.forEach(node => {
+                    // Only toggle labels for non-ego nodes
+                    if (!node.isEgo && node.id !== allNodes.get(node.id)?.id) { // Check if it's not the ego node
+                        nodesToUpdate.push({
+                            id: node.id,
+                            label: showLabels ? node.hiddenLabel : undefined
+                        });
+                    }
+                 });
+
+                if (nodesToUpdate.length > 0) {
+                    allNodes.update(nodesToUpdate);
+                }
+            } else if (allNodes) {
+                 // If network isn't initialized yet, update the source data directly
+                 // (This handles the case where checkbox is toggled before data loads)
+                 allNodes.forEach(node => {
+                    if (!node.isEgo) {
+                       node.label = showLabels ? node.hiddenLabel : undefined;
+                    }
+                 });
+            }
+        });
+
+        // --- Initial Load ---
+        drawNetwork();
+
+    </script>
+</body>
+</html>
