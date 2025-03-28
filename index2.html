@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-authorship Network</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: sans-serif; }
+        #sigma-container { width: 100%; height: 100%; background: #f9f9f9; }
+        #controls { position: absolute; top: 10px; left: 10px; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; font-size: 12px; max-width: 250px; z-index: 10;}
+        #controls label, #controls button, #controls input, #controls select { display: block; margin-bottom: 5px; }
+        #controls button { padding: 3px 8px; cursor: pointer; }
+        #legend { position: absolute; bottom: 10px; left: 10px; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; font-size: 10px; max-height: 150px; overflow-y: auto; z-index: 10;}
+        .legend-item { display: flex; align-items: center; margin-bottom: 3px; }
+        .legend-color-box { width: 12px; height: 12px; margin-right: 5px; border: 1px solid #ccc; }
+        #loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.2em; background: rgba(255,255,255,0.9); padding: 15px; border-radius: 5px; z-index: 20;}
+        /* Tooltip style */
+        #tooltip { position: absolute; display: none; background: rgba(0, 0, 0, 0.75); color: white; padding: 5px 10px; border-radius: 3px; font-size: 12px; pointer-events: none; z-index: 100;}
+    </style>
+</head>
+<body>
+    <div id="sigma-container"></div>
+    <div id="loading">Loading network data...</div>
+    <div id="tooltip"></div>
+
+    <div id="controls">
+        <h4>Controls</h4>
+        <button id="toggleLabels">Toggle Labels</button>
+        <button id="runLayout">Restart Layout</button>
+         <button id="toggleColorMode">Color by: Field</button>
+        <hr>
+        <label for="yearFilter">Filter by Year:</label>
+        <select id="yearFilterStart"></select>
+        <span>to</span>
+        <select id="yearFilterEnd"></select>
+
+        <label for="thresholdFilter">Min. Collaborations:</label>
+        <input type="number" id="thresholdFilter" value="1" min="1" style="width: 50px;">
+         <hr>
+         <label>Layout (Restart needed):</label>
+         <select id="layoutSelector">
+            <option value="forceatlas2">ForceAtlas2</option>
+            <option value="circular">Circular</option>
+            <option value="random">Random</option>
+         </select>
+         <hr>
+         <button id="detectCommunities">Detect Communities</button>
+         <small>Louvain algorithm. May take time.</small>
+    </div>
+
+    <div id="legend">
+        <h4>Legend</h4>
+        <div id="legend-content"></div>
+    </div>
+
+    <!-- Load Sigma.js and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/graphology@0.25.1/dist/graphology.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/graphology-layout-forceatlas2@0.10.1/dist/graphology-layout-forceatlas2.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/graphology-communities-louvain@2.1.0/dist/graphology-communities-louvain.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sigma@3.0.0-beta.15/dist/sigma.umd.min.js"></script>
+
+
+    <script>
+        // --- Configuration ---
+        // !!! IMPORTANT: Replace this URL with the actual URL where you host the graph_data.json file !!!
+        const jsonUrl = 'YOUR_JSON_FILE_URL_HERE'; // e.g., 'https://yourusername.github.io/your-repo/graph_data.json'
+        const egoAuthorId = 'YOUR_OPENALEX_AUTHOR_ID'; // Must match the ID used in the Python script
+        // --- End Configuration ---
+
+        const container = document.getElementById('sigma-container');
+        const loadingIndicator = document.getElementById('loading');
+        const toggleLabelsButton = document.getElementById('toggleLabels');
+        const runLayoutButton = document.getElementById('runLayout');
+        const yearFilterStartSelect = document.getElementById('yearFilterStart');
+        const yearFilterEndSelect = document.getElementById('yearFilterEnd');
+        const thresholdFilterInput = document.getElementById('thresholdFilter');
+        const legendContent = document.getElementById('legend-content');
+        const detectCommunitiesButton = document.getElementById('detectCommunities');
+        const toggleColorModeButton = document.getElementById('toggleColorMode');
+        const layoutSelector = document.getElementById('layoutSelector');
+        const tooltip = document.getElementById('tooltip');
+
+
+        let sigmaInstance = null;
+        let graph = null;
+        let availableYears = [];
+        let fieldColors = {}; // To store colors assigned to fields
+        let communityColors = {}; // To store colors assigned to communities
+        let uniqueFields = new Set();
+        let currentColorMode = 'field'; // 'field' or 'community'
+
+
+        // --- Color Palette (adjust as needed) ---
+        // Using a categorical color scheme generator might be better for many fields
+        const colorPalette = [
+          "#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c",
+          "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928",
+          "#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462",
+          "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd", "#ccebc5", "#ffed6f"
+        ];
+        let colorIndex = 0;
+
+        function assignColor(value, colorMap) {
+            if (!colorMap[value]) {
+                colorMap[value] = colorPalette[colorIndex % colorPalette.length];
+                colorIndex++;
+            }
+            return colorMap[value];
+        }
+
+        // --- Tooltip Handling ---
+         function showTooltip(event) {
+            const nodeData = event.node ? graph.getNodeAttributes(event.node) : null;
+            if (nodeData) {
+                const collabCount = nodeData.id === egoAuthorId ? '-' : nodeData.degree_with_ego || 0;
+                const mostRecentYear = nodeData.years ? Math.max(...nodeData.years) : 'N/A'; // Assuming 'years' attribute exists
+
+                tooltip.style.display = 'block';
+                tooltip.style.left = `${event.event.original.clientX + 10}px`;
+                tooltip.style.top = `${event.event.original.clientY + 10}px`;
+                tooltip.innerHTML = `
+                    <strong>${nodeData.name}</strong><br>
+                    Field: ${nodeData.field}<br>
+                    Collaborations with Ego: ${collabCount}<br>
+                    ${nodeData.community !== undefined ? `Community: ${nodeData.community}<br>` : ''}
+                `;
+                 // Add recent year if available - requires adding years to nodes in Python
+                 // tooltip.innerHTML += `Most Recent Collab: ${mostRecentYear}`;
+            }
+        }
+
+        function hideTooltip() {
+            tooltip.style.display = 'none';
+        }
+
+
+        // --- Main Visualization Function ---
+        async function loadAndRenderGraph() {
+            try {
+                loadingIndicator.style.display = 'block';
+                if (jsonUrl === 'YOUR_JSON_FILE_URL_HERE') {
+                     throw new Error("Please configure the 'jsonUrl' variable in the script with the URL of your graph_data.json file.");
+                }
+                 if (egoAuthorId === 'YOUR_OPENALEX_AUTHOR_ID') {
+                     throw new Error("Please configure the 'egoAuthorId' variable in the script with your OpenAlex ID.");
+                }
+
+                const response = await fetch(jsonUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} fetching ${jsonUrl}`);
+                }
+                const graphData = await response.json();
+
+                graph = new graphology.Graph({ multi: false, type: 'undirected' }); // Use Graphology
+
+                // Process nodes
+                let maxDegreeWithEgo = 1; // Min size should be > 0
+                const currentYears = new Set();
+
+                graphData.nodes.forEach(node => {
+                    uniqueFields.add(node.field);
+                    graph.addNode(node.id, {
+                        label: node.name,
+                        name: node.name, // Store name separately if label might change
+                        size: 5, // Default size
+                        x: Math.random(), // Initial random position
+                        y: Math.random(),
+                        field: node.field || "Unknown Field",
+                        degree_with_ego: node.degree_with_ego || 0,
+                        isEgo: node.id === egoAuthorId
+                    });
+                    if (node.id !== egoAuthorId && node.degree_with_ego > maxDegreeWithEgo) {
+                        maxDegreeWithEgo = node.degree_with_ego;
+                    }
+                });
+
+                // Assign base size (ego is largest, others proportional to degree_with_ego)
+                graph.forEachNode((node, attrs) => {
+                    if (attrs.isEgo) {
+                        graph.setNodeAttribute(node, 'size', 15); // Ego size
+                        graph.setNodeAttribute(node, 'color', '#FF0000'); // Distinct Ego color
+                         graph.setNodeAttribute(node, 'zIndex', 10);
+                    } else {
+                        // Scale size logarithmically or linearly based on degree_with_ego
+                        const scaledSize = 3 + 10 * (attrs.degree_with_ego / maxDegreeWithEgo);
+                        graph.setNodeAttribute(node, 'size', Math.max(3, scaledSize)); // Ensure min size
+                    }
+                     // Assign initial field color (ego keeps its color)
+                    if (!attrs.isEgo) {
+                         graph.setNodeAttribute(node, 'fieldColor', assignColor(attrs.field, fieldColors));
+                         graph.setNodeAttribute(node, 'color', graph.getNodeAttribute(node, 'fieldColor')); // Default color
+                    } else {
+                         graph.setNodeAttribute(node, 'fieldColor', '#FF0000'); // Ego's field 'color'
+                    }
+                });
+
+
+                // Process edges
+                graphData.edges.forEach(edge => {
+                     // Ensure both source and target nodes exist before adding edge
+                     if (graph.hasNode(edge.source) && graph.hasNode(edge.target) && edge.source !== edge.target) {
+                         // Check if edge already exists (Graphology undirected handles A->B vs B->A)
+                        if (!graph.hasEdge(edge.source, edge.target)) {
+                            graph.addEdge(edge.source, edge.target, {
+                                weight: edge.weight || 1,
+                                years: edge.years || [],
+                                with_ego: edge.with_ego || false,
+                                // Base size/thickness
+                                size: Math.log(1 + (edge.weight || 1)), // Log scale for thickness
+                                // Edge type for potential different rendering (optional)
+                                type: edge.with_ego ? 'dashed' : 'line', // Example: dashed if with ego?
+                                // Keep original data for filtering
+                                originalWeight: edge.weight || 1,
+                                originalYears: edge.years || [],
+                                hidden: false // Filter flag
+                            });
+                            (edge.years || []).forEach(year => currentYears.add(year));
+                         } else {
+                             // Optionally handle merging if duplicates found, though graphology undirected should prevent direct dupes
+                             console.warn(`Duplicate edge ignored: ${edge.source} - ${edge.target}`);
+                         }
+                     } else {
+                         console.warn(`Skipping edge due to missing node or self-loop: ${edge.source} - ${edge.target}`);
+                     }
+                });
+
+                availableYears = [...currentYears].sort((a, b) => a - b);
+                populateYearFilters();
+                updateLegend();
+
+                // Instantiate Sigma
+                if (sigmaInstance) {
+                    sigmaInstance.kill(); // Kill previous instance if reloading
+                }
+                sigmaInstance = new Sigma(graph, container, {
+                    // allowInvalidContainer: true, // Use if container size is initially 0
+                    renderEdgeLabels: false, // Can be toggled
+                    // Default node/edge rendering settings (can be overridden by node/edge attributes)
+                     nodeReducer: (node, data) => {
+                        const newData = { ...data, zIndex: data.isEgo ? 10 : 0 };
+                        if (graph.getNodeAttribute(node, 'hidden')) {
+                           newData.hidden = true;
+                        }
+                        return newData;
+                    },
+                    edgeReducer: (edge, data) => {
+                        const newData = { ...data };
+                        if (graph.getEdgeAttribute(edge, 'hidden')) {
+                           newData.hidden = true;
+                        }
+                         // Example: Make non-ego connections thinner or different color
+                        // if (!data.with_ego) { newData.color = '#ccc'; newData.size = Math.max(0.5, data.size / 2); }
+
+                        // Filter out C1-C2 edges *if* requested by original prompt interpretation
+                        // This hides edges between coauthors that only exist because they coauthored WITH the ego.
+                        // Comment this block out if you WANT to see those triangles.
+                        /*
+                        const sourceAttrs = graph.getNodeAttributes(graph.source(edge));
+                        const targetAttrs = graph.getNodeAttributes(graph.target(edge));
+                        if (!sourceAttrs.isEgo && !targetAttrs.isEgo) {
+                            newData.hidden = true; // Hide direct co-author links if they are `with_ego=true`
+                        }
+                        */
+
+                        return newData;
+                    },
+
+                });
+
+                // Layout
+                 applyLayout(); // Apply initial layout
+
+                // Interaction Bindings
+                sigmaInstance.on('enterNode', showTooltip);
+                sigmaInstance.on('leaveNode', hideTooltip);
+                // sigmaInstance.on('clickNode', event => console.log('clickNode', event.node, graph.getNodeAttributes(event.node)));
+
+                // Add hover effect (optional)
+                 let hoveredNode = null;
+                sigmaInstance.on("enterNode", (event) => {
+                    hoveredNode = event.node;
+                    sigmaInstance.refresh();
+                });
+                sigmaInstance.on("leaveNode", () => {
+                    hoveredNode = null;
+                    sigmaInstance.refresh();
+                });
+
+                // Reducer for hover effect (make neighbors stand out)
+                sigmaInstance.setSetting("nodeReducer", (node, data) => {
+                     const newData = { ...data };
+                    if (graph.getNodeAttribute(node, 'hidden')) {
+                       newData.hidden = true;
+                    }
+
+                    if (hoveredNode) {
+                        if (node === hoveredNode || graph.neighbors(hoveredNode).includes(node)) {
+                            newData.color = data.color; // Keep original color
+                            newData.zIndex = data.isEgo ? 11 : 1; // Bring ego slightly higher
+                        } else {
+                            newData.color = "#eee"; // Dim non-neighbors
+                            newData.label = ""; // Hide labels of non-neighbors
+                             newData.zIndex = 0;
+                        }
+                    } else {
+                         newData.zIndex = data.isEgo ? 10 : 0;
+                    }
+                    return newData;
+                 });
+                sigmaInstance.setSetting("edgeReducer", (edge, data) => {
+                     const newData = { ...data };
+                    if (graph.getEdgeAttribute(edge, 'hidden')) {
+                       newData.hidden = true;
+                    }
+                    if (hoveredNode && (!graph.hasExtremity(edge, hoveredNode))) {
+                        newData.hidden = true; // Hide edges not connected to hovered node/neighbors
+                    }
+
+                     // // Uncomment this if you decided to hide C1-C2 links above
+                     // const sourceAttrs = graph.getNodeAttributes(graph.source(edge));
+                     // const targetAttrs = graph.getNodeAttributes(graph.target(edge));
+                     // if (!sourceAttrs.isEgo && !targetAttrs.isEgo) {
+                     //     newData.hidden = true;
+                     // }
+
+
+                    return newData;
+                });
+
+
+                loadingIndicator.style.display = 'none';
+
+            } catch (error) {
+                console.error('Error loading or rendering graph:', error);
+                loadingIndicator.textContent = `Error: ${error.message}. Check console & JSON URL.`;
+                // Optionally display error more prominently on the page
+                 container.innerHTML = `<p style='color: red; padding: 20px;'>Error loading visualization: ${error.message}</p>`;
+            }
+        }
+
+
+        // --- Layout Function ---
+        function applyLayout() {
+            const layoutChoice = layoutSelector.value;
+            console.log(`Applying ${layoutChoice} layout...`);
+            loadingIndicator.textContent = `Applying ${layoutChoice} layout...`;
+            loadingIndicator.style.display = 'block';
+
+
+            // Ensure positions are cleared if needed, especially for non-force layouts
+             graph.forEachNode(node => {
+                graph.removeNodeAttribute(node, 'x');
+                graph.removeNodeAttribute(node, 'y');
+            });
+
+
+            if (layoutChoice === 'forceatlas2' && typeof forceAtlas2 !== 'undefined') {
+                // Use graphology-layout-forceatlas2
+                 // Settings reference: https://github.com/graphology/graphology-layout-forceatlas2#settings
+                const settings = forceAtlas2.inferSettings(graph); // Infer settings based on graph size
+                 settings.barnesHutOptimize = true; // Often faster for larger graphs
+                 settings.strongGravityMode = false;
+                 settings.gravity = 0.5; // Adjust gravity
+                 settings.scalingRatio = 10; // Adjust overall spread
+                 settings.slowDown = 1 + Math.log(graph.order) / 10; // Slow down more for larger graphs
+
+
+                 // Kamada-Kawai is not directly in this bundle. ForceAtlas2 is a common alternative.
+                 // For true Kamada-Kawai, you might need a different library or plugin.
+                forceAtlas2.assign(graph, { iterations: 150, settings: settings }); // Run layout synchronously
+                console.log('ForceAtlas2 layout complete.');
+                loadingIndicator.style.display = 'none';
+                if(sigmaInstance) sigmaInstance.refresh(); // Refresh sigma if already initialized
+
+
+            } else if (layoutChoice === 'circular') {
+                 // Basic circular layout
+                 const nodes = graph.nodes();
+                 const angleStep = (2 * Math.PI) / nodes.length;
+                 const radius = nodes.length * 5; // Adjust radius based on node count
+
+                 nodes.forEach((node, i) => {
+                    graph.setNodeAttribute(node, 'x', radius * Math.cos(i * angleStep));
+                    graph.setNodeAttribute(node, 'y', radius * Math.sin(i * angleStep));
+                 });
+                 console.log('Circular layout complete.');
+                 loadingIndicator.style.display = 'none';
+                 if(sigmaInstance) sigmaInstance.refresh();
+
+            } else { // Random layout
+                graph.forEachNode(node => {
+                    graph.setNodeAttribute(node, 'x', Math.random() * 100);
+                    graph.setNodeAttribute(node, 'y', Math.random() * 100);
+                 });
+                 console.log('Random layout complete.');
+                 loadingIndicator.style.display = 'none';
+                 if(sigmaInstance) sigmaInstance.refresh();
+            }
+             // Small delay to allow rendering after layout calculation if async
+             // setTimeout(() => {
+             //     loadingIndicator.style.display = 'none';
+             //     if(sigmaInstance) sigmaInstance.refresh();
+             // }, 100);
+        }
+
+
+        // --- Filtering ---
+        function applyFilters() {
+            if (!graph || !sigmaInstance) return;
+
+            const startYear = parseInt(yearFilterStartSelect.value, 10);
+            const endYear = parseInt(yearFilterEndSelect.value, 10);
+            const threshold = parseInt(thresholdFilterInput.value, 10);
+
+            let visibleNodes = new Set();
+             if (graph.hasNode(egoAuthorId)) visibleNodes.add(egoAuthorId); // Ego always visible initially
+
+
+            graph.forEachEdge((edge, attrs, source, target) => {
+                const edgeYears = attrs.originalYears || [];
+                const weight = attrs.originalWeight || 0;
+
+                // Check year range overlap
+                const yearMatch = edgeYears.length === 0 || edgeYears.some(year => year >= startYear && year <= endYear);
+                // Check threshold
+                const thresholdMatch = weight >= threshold;
+
+                const shouldHide = !(yearMatch && thresholdMatch);
+                graph.setEdgeAttribute(edge, 'hidden', shouldHide);
+
+                 // If edge is visible, ensure its nodes are visible
+                 if (!shouldHide) {
+                    visibleNodes.add(source);
+                    visibleNodes.add(target);
+                 }
+            });
+
+             // Hide nodes that have no visible edges connected to them (except ego)
+             graph.forEachNode((node, attrs) => {
+                if (node !== egoAuthorId) {
+                    // A node is hidden if it's not in the set of nodes connected by visible edges
+                     graph.setNodeAttribute(node, 'hidden', !visibleNodes.has(node));
+                } else {
+                     graph.setNodeAttribute(node, 'hidden', false); // Ensure ego is never hidden by filtering
+                }
+             });
+
+
+            sigmaInstance.refresh();
+        }
+
+        function populateYearFilters() {
+            yearFilterStartSelect.innerHTML = '';
+            yearFilterEndSelect.innerHTML = '';
+            if (availableYears.length === 0) {
+                 // Handle case with no year data
+                 const option = document.createElement('option');
+                 option.value = "0";
+                 option.text = "N/A";
+                 yearFilterStartSelect.appendChild(option.cloneNode(true));
+                 yearFilterEndSelect.appendChild(option);
+                 return;
+            }
+
+            availableYears.forEach(year => {
+                const optionStart = document.createElement('option');
+                optionStart.value = year;
+                optionStart.text = year;
+                yearFilterStartSelect.appendChild(optionStart);
+
+                const optionEnd = document.createElement('option');
+                optionEnd.value = year;
+                optionEnd.text = year;
+                yearFilterEndSelect.appendChild(optionEnd);
+            });
+            yearFilterStartSelect.value = availableYears[0];
+            yearFilterEndSelect.value = availableYears[availableYears.length - 1];
+        }
+
+        // --- Legend ---
+        function updateLegend() {
+             legendContent.innerHTML = '';
+             const colors = currentColorMode === 'field' ? fieldColors : communityColors;
+             const title = currentColorMode === 'field' ? 'Fields' : 'Communities';
+
+             // Add Ego node explicitly if using field colors
+              if (currentColorMode === 'field' && graph.hasNode(egoAuthorId)) {
+                 const egoColor = graph.getNodeAttribute(egoAuthorId, 'color');
+                 const item = document.createElement('div');
+                 item.classList.add('legend-item');
+                 item.innerHTML = `<span class="legend-color-box" style="background-color: ${egoColor};"></span> Ego (${graph.getNodeAttribute(egoAuthorId, 'name')})`;
+                 legendContent.appendChild(item);
+             }
+
+
+            // Sort items alphabetically for consistency
+            const sortedItems = Object.entries(colors).sort((a, b) => String(a[0]).localeCompare(String(b[0])));
+
+            sortedItems.forEach(([name, color]) => {
+                 // Skip Ego if already added and in field mode
+                if (currentColorMode === 'field' && name === 'Ego') return;
+
+                const item = document.createElement('div');
+                item.classList.add('legend-item');
+                item.innerHTML = `<span class="legend-color-box" style="background-color: ${color};"></span> ${name}`;
+                legendContent.appendChild(item);
+            });
+             // Add title dynamically
+             const legendTitle = document.getElementById('legend').querySelector('h4');
+             if(legendTitle) legendTitle.textContent = title;
+        }
+
+         // --- Community Detection ---
+        function runCommunityDetection() {
+             if (!graph || typeof graphologyLouvain === 'undefined') {
+                 alert("Graph or Louvain library not loaded.");
+                 return;
+             }
+             console.log("Running Louvain community detection...");
+             loadingIndicator.textContent = "Detecting communities...";
+             loadingIndicator.style.display = 'block';
+
+             // Ensure Louvain runs on the graph *ignoring* currently hidden nodes/edges?
+             // Or run on the full graph? Let's run on the full graph.
+             // The Louvain function adds a 'community' attribute to each node.
+             try {
+                 // Assign community IDs. The function modifies the graph in place.
+                 graphologyLouvain.assign(graph, {
+                      attributes: { community: 'community' } // Store result in 'community' attribute
+                 });
+
+                 // Reset community colors and assign new ones
+                 communityColors = {};
+                 colorIndex = 0; // Reset color index for communities
+                 graph.forEachNode(node => {
+                     const communityId = graph.getNodeAttribute(node, 'community');
+                     if (communityId !== undefined) {
+                          // Assign color based on community ID
+                         const communityColor = assignColor(`Community ${communityId}`, communityColors);
+                         graph.setNodeAttribute(node, 'communityColor', communityColor);
+                         // Optionally switch color mode immediately
+                         // graph.setNodeAttribute(node, 'color', communityColor);
+                     }
+                 });
+
+                 console.log("Louvain complete. Communities assigned.");
+                  // Update UI
+                  currentColorMode = 'community'; // Switch mode
+                  toggleColorModeButton.textContent = `Color by: Community`;
+                  switchNodeColors(); // Apply new colors
+                  updateLegend(); // Update legend for communities
+
+             } catch (error) {
+                 console.error("Error during Louvain detection:", error);
+                 alert("An error occurred during community detection. Check console.");
+             } finally {
+                  loadingIndicator.style.display = 'none';
+             }
+
+         }
+
+         // --- Color Mode Switching ---
+         function switchNodeColors() {
+             if (!graph) return;
+             graph.forEachNode((node, attrs) => {
+                 if (!attrs.isEgo) { // Keep Ego color consistent
+                     const colorAttr = currentColorMode === 'field' ? 'fieldColor' : 'communityColor';
+                     const color = graph.getNodeAttribute(node, colorAttr);
+                     if (color) { // Only set if color attribute exists
+                        graph.setNodeAttribute(node, 'color', color);
+                     } else if (currentColorMode === 'community'){
+                         // Fallback if community detection hasn't run or node missed
+                         graph.setNodeAttribute(node, 'color', graph.getNodeAttribute(node, 'fieldColor') || '#ccc');
+                     } else {
+                         graph.setNodeAttribute(node, 'color', '#ccc'); // Default fallback
+                     }
+                 }
+             });
+             if(sigmaInstance) sigmaInstance.refresh();
+             updateLegend();
+         }
+
+
+        // --- Event Listeners ---
+        let labelsVisible = true;
+        toggleLabelsButton.addEventListener('click', () => {
+            if (!sigmaInstance) return;
+            labelsVisible = !labelsVisible;
+            sigmaInstance.setSetting('renderNodeLabels', labelsVisible);
+            toggleLabelsButton.textContent = labelsVisible ? 'Hide Labels' : 'Show Labels';
+        });
+
+        runLayoutButton.addEventListener('click', applyLayout);
+        layoutSelector.addEventListener('change', () => {
+             // Layout change requires re-running
+             console.log("Layout selection changed. Click 'Restart Layout' to apply.");
+             // Optionally auto-apply: applyLayout();
+         });
+
+        yearFilterStartSelect.addEventListener('change', applyFilters);
+        yearFilterEndSelect.addEventListener('change', applyFilters);
+        thresholdFilterInput.addEventListener('input', applyFilters); // Use 'input' for live updates
+        detectCommunitiesButton.addEventListener('click', runCommunityDetection);
+
+        toggleColorModeButton.addEventListener('click', () => {
+             if (currentColorMode === 'field') {
+                 // Check if communities exist before switching
+                 if (Object.keys(communityColors).length === 0) {
+                    alert("Please run 'Detect Communities' first to color by community.");
+                    return;
+                 }
+                 currentColorMode = 'community';
+                 toggleColorModeButton.textContent = `Color by: Community`;
+             } else {
+                 currentColorMode = 'field';
+                 toggleColorModeButton.textContent = `Color by: Field`;
+             }
+             switchNodeColors();
+         });
+
+         // Ensure Sigma resizes with the window
+         window.addEventListener('resize', () => {
+             if (sigmaInstance) {
+                 sigmaInstance.resize();
+             }
+         });
+
+        // --- Initial Load ---
+        loadAndRenderGraph();
+
+    </script>
+
+</body>
+</html>
